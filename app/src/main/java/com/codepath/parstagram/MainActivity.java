@@ -1,9 +1,12 @@
 package com.codepath.parstagram;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -17,6 +20,7 @@ import android.widget.Toast;
 
 import com.parse.FindCallback;
 import com.parse.ParseException;
+import com.parse.ParseFile;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
@@ -33,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
     private ImageView ivPostImage;
     private Button btnSubmit;
     private Button btnLogout;
-    private File photofile;
+    private File photoFile;
     public String photoFileName = "photo.jpg";
 
     @Override
@@ -72,23 +76,40 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this, "Description cannot be empty", Toast.LENGTH_SHORT).show();
                     return;
                 }
+                if (photoFile == null || ivPostImage.getDrawable() == null) {
+                    Toast.makeText(MainActivity.this, "There is no image!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 ParseUser currentUser = ParseUser.getCurrentUser();
-                savePost(description, currentUser);
+                savePost(description, currentUser, photoFile);
             }
         });
     }
 
     private void launchCamera() {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        photofile = getPhotoFileUri(photoFileName);
+        photoFile = getPhotoFileUri(photoFileName);
 
-        Uri fileProvider = FileProvider.getUriForFile(MainActivity.this, "com.codepath.fileprovider", photofile);
+        Uri fileProvider = FileProvider.getUriForFile(MainActivity.this, "com.codepath.fileprovider", photoFile);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, fileProvider);
 
         if (intent.resolveActivity(getPackageManager()) != null) {
             startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
         }
         Log.i(TAG, "camera launched");
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
+            if (resultCode == RESULT_OK) {
+                Bitmap takenImage = BitmapFactory.decodeFile(photoFile.getAbsolutePath());
+                ivPostImage.setImageBitmap(takenImage);
+            } else {
+                Toast.makeText(MainActivity.this, "Picture wasn't taken!", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 
     private File getPhotoFileUri(String fileName) {
@@ -100,10 +121,10 @@ public class MainActivity extends AppCompatActivity {
         return new File(mediaStorageDir.getPath() + File.separator + fileName);
     }
 
-    private void savePost(String description, ParseUser currentUser) {
+    private void savePost(String description, ParseUser currentUser, File photoFile) {
         Post post = new Post();
         post.setDescription(description);
-        //post.setImage();
+        post.setImage(new ParseFile(photoFile));
         post.setUser(currentUser);
         post.saveInBackground(new SaveCallback() {
             @Override
@@ -114,6 +135,7 @@ public class MainActivity extends AppCompatActivity {
                     return;
                 }
                 etDescription.setText("");
+                ivPostImage.setImageResource(0);
             }
         });
     }
