@@ -2,6 +2,7 @@ package com.codepath.parstagram;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,7 @@ import org.parceler.Parcels;
 import java.util.List;
 
 public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> {
+    public static final String TAG = "PostsAdapter";
 
     private Context context;
     private List<Post> posts;
@@ -57,6 +59,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             tvUsername = itemView.findViewById(R.id.tvUsername);
             ivImage = itemView.findViewById(R.id.ivImage);
             tvDescription = itemView.findViewById(R.id.tvDescription);
+            itemView.setOnClickListener(this);
         }
 
         public void bind(Post post) {
@@ -71,11 +74,14 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
 
         @Override
         public void onClick(View v) {
+            Log.i(TAG, "View clicked!");
             int position = getAdapterPosition();
             if (position != RecyclerView.NO_POSITION) {
                 Post post = posts.get(position);
                 Intent intent = new Intent(context, DetailsActivity.class);
-                intent.putExtra(Post.class.getSimpleName(), Parcels.wrap(post));
+                intent.putExtra("username", post.getUser().getUsername());
+                intent.putExtra("imageUrl", post.getImage().getUrl());
+                intent.putExtra("description", post.getDescription());
                 context.startActivity(intent);
             }
         }
