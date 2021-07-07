@@ -17,6 +17,7 @@ import com.parse.ParseFile;
 
 import org.parceler.Parcels;
 
+import java.util.Date;
 import java.util.List;
 
 public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> {
@@ -82,6 +83,11 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
                 intent.putExtra("username", post.getUser().getUsername());
                 intent.putExtra("imageUrl", post.getImage().getUrl());
                 intent.putExtra("description", post.getDescription());
+
+                Date createdAt = post.getCreatedAt();
+                String timeAgo = Post.calculateTimeAgo(createdAt);
+                intent.putExtra("createdAt", timeAgo);
+
                 context.startActivity(intent);
             }
         }

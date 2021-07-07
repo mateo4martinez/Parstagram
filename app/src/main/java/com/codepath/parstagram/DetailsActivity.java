@@ -22,6 +22,7 @@ public class DetailsActivity extends AppCompatActivity {
     private TextView tvUsername;
     private ImageView ivImage;
     private TextView tvDescription;
+    private TextView tvTimestamp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,9 +32,11 @@ public class DetailsActivity extends AppCompatActivity {
         tvUsername = findViewById(R.id.tvUsername);
         ivImage = findViewById(R.id.ivImage);
         tvDescription = findViewById(R.id.tvDescription);
+        tvTimestamp = findViewById(R.id.tvTimestamp);
 
         tvUsername.setText(getIntent().getStringExtra("username"));
         tvDescription.setText(getIntent().getStringExtra("description"));
+        tvTimestamp.setText(getIntent().getStringExtra("createdAt"));
         String imageUrl = getIntent().getStringExtra("imageUrl");
         Glide.with(this).load(imageUrl).transform(new RoundedCornersTransformation(RADIUS, MARGIN)).into(ivImage);
     }
