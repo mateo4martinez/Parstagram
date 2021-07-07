@@ -3,6 +3,7 @@ package com.codepath.parstagram;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -19,6 +20,7 @@ public class FeedActivity extends AppCompatActivity {
     public static final String TAG = "FeedActivity";
 
     private RecyclerView rvPosts;
+    private SwipeRefreshLayout swipeContainer;
     protected PostsAdapter adapter;
     protected List<Post> allPosts;
 
@@ -34,7 +36,24 @@ public class FeedActivity extends AppCompatActivity {
 
         rvPosts.setAdapter(adapter);
         rvPosts.setLayoutManager(new LinearLayoutManager(this));
+
+        setupRefresh();
+
         queryPosts();
+    }
+
+    private void setupRefresh() {
+        swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipeContainer);
+
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                adapter.clear();
+                queryPosts();
+                adapter.addAll(allPosts);
+                swipeContainer.setRefreshing(false);
+            }
+        });
     }
 
     private void queryPosts() {
