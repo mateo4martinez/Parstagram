@@ -3,37 +3,45 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="16dp"
+    android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/igLightGray"
     tools:context=".LoginActivity">
 
     <ImageView
-        android:id="@+id/igIcon"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:id="@+id/navLogo"
+        android:layout_width="200dp"
+        android:layout_height="100dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="150dp"
-
-        android:src="@drawable/icon" />
+        android:layout_marginTop="100dp"
+        android:src="@drawable/nav_logo_whiteout" />
 
     <EditText
         android:id="@+id/etUsername"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/igIcon"
-        android:layout_marginTop="20dp"
-        android:layout_weight="1"
+        android:layout_height="30dp"
+        android:layout_below="@+id/navLogo"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="20dp"
+        android:background="@drawable/edittextdesign"
+        android:backgroundTint="@color/white"
+        android:paddingStart="10dp"
         android:ems="10"
         android:hint="username" />
 
     <EditText
         android:id="@+id/etPassword"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="30dp"
         android:layout_below="@+id/etUsername"
-        android:layout_weight="1"
+        android:layout_marginTop="5dp"
+        android:layout_alignStart="@+id/etUsername"
+        android:layout_alignEnd="@+id/etUsername"
+        android:background="@drawable/edittextdesign"
+        android:backgroundTint="@color/white"
+        android:paddingStart="10dp"
         android:ems="10"
         android:hint="password"
         android:inputType="textPassword" />
@@ -41,9 +49,25 @@
     <Button
         android:id="@+id/btnLogin"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_below="@+id/etPassword"
-        android:layout_weight="1"
+        android:layout_marginTop="10dp"
+        android:layout_alignStart="@+id/etUsername"
+        android:layout_alignEnd="@+id/etUsername"
+        android:backgroundTint="@color/igBlue"
         android:text="Login" />
+
+    <Button
+        android:id="@+id/btnSignup"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_below="@+id/btnLogin"
+        android:layout_marginTop="5dp"
+        android:layout_alignStart="@+id/etUsername"
+        android:layout_alignEnd="@+id/etUsername"
+        android:backgroundTint="@color/igGreen"
+        android:text="Sign up"/>
+
+
 
 </RelativeLayout>
