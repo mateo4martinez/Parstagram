@@ -68,6 +68,4 @@
         android:backgroundTint="@color/igGreen"
         android:text="Sign up"/>
 
-
-
 </RelativeLayout>

@@ -26,6 +26,7 @@
         android:layout_marginTop="2dp"
         android:layout_alignEnd="@+id/etDescription"
         android:layout_alignStart="@+id/etDescription"
+        android:backgroundTint="@color/igBlue"
         android:text="Take Picture" />
 
     <ImageView
@@ -46,6 +47,7 @@
         android:layout_marginTop="5dp"
         android:layout_alignEnd="@+id/etDescription"
         android:layout_alignStart="@+id/etDescription"
+        android:backgroundTint="@color/igBlue"
         android:text="Submit" />
 
     <Button
@@ -55,6 +57,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="70dp"
+        android:backgroundTint="@color/igGreen"
         android:text="Logout" />
 
     <Button
@@ -64,5 +67,6 @@
         android:layout_below="@+id/btnSubmit"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="5dp"
+        android:backgroundTint="@color/igBlue"
         android:text="Feed"/>
 </RelativeLayout>
