@@ -57,6 +57,8 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
         private ImageView ivImage;
         private TextView tvDescription;
         private ImageView ivUserImage;
+        private TextView tvTimestamp;
+        private String timeAgo;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -65,6 +67,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             tvDescription = itemView.findViewById(R.id.tvDescription);
             ivUserImage = itemView.findViewById(R.id.ivUserImage);
             itemView.setOnClickListener(this);
+            tvTimestamp = itemView.findViewById(R.id.tvTimestamp);
         }
 
         public void bind(Post post) {
@@ -75,8 +78,11 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
                 Glide.with(context).load(image.getUrl()).transform(new RoundedCornersTransformation(DetailsActivity.BIG_RADIUS, DetailsActivity.MARGIN)).into(ivImage);
             }
             Glide.with(context).load(R.drawable.icon).transform(new RoundedCornersTransformation(DetailsActivity.SMALL_RADIUS, DetailsActivity.MARGIN)).into(ivUserImage);
-        }
 
+            Date createdAt = post.getCreatedAt();
+            timeAgo = Post.calculateTimeAgo(createdAt);
+            tvTimestamp.setText(timeAgo);
+        }
 
         @Override
         public void onClick(View v) {
@@ -88,9 +94,6 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
                 intent.putExtra("username", post.getUser().getUsername());
                 intent.putExtra("imageUrl", post.getImage().getUrl());
                 intent.putExtra("description", post.getDescription());
-
-                Date createdAt = post.getCreatedAt();
-                String timeAgo = Post.calculateTimeAgo(createdAt);
                 intent.putExtra("createdAt", timeAgo);
 
                 context.startActivity(intent);

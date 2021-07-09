@@ -23,7 +23,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.codepath.parstagram.FeedActivity;
 import com.codepath.parstagram.LoginActivity;
 import com.codepath.parstagram.MainActivity;
 import com.codepath.parstagram.Post;
@@ -49,7 +48,6 @@ public class ComposeFragment extends Fragment {
     private ImageView ivPostImage;
     private Button btnSubmit;
     private Button btnLogout;
-    private Button btnFeed;
     private File photoFile;
     public String photoFileName = "photo.jpg";
 
@@ -71,7 +69,6 @@ public class ComposeFragment extends Fragment {
         btnCaptureImage = view.findViewById(R.id.btnCaptureImage);
         ivPostImage = view.findViewById(R.id.ivPostImage);
         btnSubmit = view.findViewById(R.id.btnSubmit);
-        btnFeed = view.findViewById(R.id.btnFeed);
         btnLogout = view.findViewById(R.id.btnLogout);
 
         btnLogout.setOnClickListener(new View.OnClickListener() {
@@ -79,7 +76,7 @@ public class ComposeFragment extends Fragment {
             public void onClick(View v) {
                 ParseUser.logOut();
                 ParseUser currentUser = ParseUser.getCurrentUser();
-                goLoginActivity();
+                startActivity(new Intent(getActivity(), LoginActivity.class));
             }
         });
 
@@ -104,13 +101,6 @@ public class ComposeFragment extends Fragment {
                 }
                 ParseUser currentUser = ParseUser.getCurrentUser();
                 savePost(description, currentUser, photoFile);
-            }
-        });
-
-        btnFeed.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                goFeedActivity();
             }
         });
     }
@@ -167,15 +157,5 @@ public class ComposeFragment extends Fragment {
                 ivPostImage.setImageResource(0);
             }
         });
-    }
-
-    private void goLoginActivity() {
-        Intent i = new Intent(getContext(), LoginActivity.class);
-        startActivity(i);
-    }
-
-    private void goFeedActivity() {
-        Intent i = new Intent(getContext(), FeedActivity.class);
-        startActivity(i);
     }
 }
