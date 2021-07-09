@@ -3,6 +3,8 @@ package com.codepath.parstagram;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -25,6 +27,7 @@ public class DetailsActivity extends AppCompatActivity {
     private TextView tvDescription;
     private TextView tvTimestamp;
     private ImageView ivUserImage;
+    private Button btnBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +39,7 @@ public class DetailsActivity extends AppCompatActivity {
         tvDescription = findViewById(R.id.tvDescription);
         tvTimestamp = findViewById(R.id.tvTimestamp);
         ivUserImage = findViewById(R.id.ivUserImage);
+        btnBack = findViewById(R.id.btnBack);
 
         tvUsername.setText(getIntent().getStringExtra("username"));
         tvDescription.setText(getIntent().getStringExtra("description"));
@@ -43,5 +47,12 @@ public class DetailsActivity extends AppCompatActivity {
         String imageUrl = getIntent().getStringExtra("imageUrl");
         Glide.with(this).load(imageUrl).transform(new RoundedCornersTransformation(BIG_RADIUS, MARGIN)).into(ivImage);
         Glide.with(this).load(R.drawable.icon).transform(new RoundedCornersTransformation(SMALL_RADIUS, MARGIN)).into(ivUserImage);
+
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 }
