@@ -16,7 +16,8 @@
         android:name=".ParseApplication"
         android:allowBackup="true"
         android:label="Parstagram"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/icon"
+        android:icon="@drawable/icon"
         android:supportsRtl="true"
         android:usesCleartextTraffic="true"
         android:theme="@style/Theme.Parstagram">
