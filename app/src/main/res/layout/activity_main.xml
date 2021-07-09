@@ -3,70 +3,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     tools:context=".MainActivity">
 
-    <EditText
-        android:id="@+id/etDescription"
+    <FrameLayout
+        android:id="@+id/flContainer"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginStart="10dp"
-        android:hint="Description..." />
+        android:layout_height="match_parent"
+        android:layout_above="@+id/bottomNavigation"/>
 
-    <Button
-        android:id="@+id/btnCaptureImage"
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigation"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/etDescription"
-        android:layout_marginTop="2dp"
-        android:layout_alignEnd="@+id/etDescription"
-        android:layout_alignStart="@+id/etDescription"
-        android:backgroundTint="@color/igBlue"
-        android:text="Take Picture" />
-
-    <ImageView
-        android:id="@+id/ivPostImage"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_below="@+id/btnCaptureImage"
-        android:layout_marginTop="5dp"
-        android:layout_alignEnd="@+id/etDescription"
-        android:layout_alignStart="@+id/etDescription"
-        tools:srcCompat="@tools:sample/avatars" />
-
-    <Button
-        android:id="@+id/btnSubmit"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/ivPostImage"
-        android:layout_marginTop="5dp"
-        android:layout_alignEnd="@+id/etDescription"
-        android:layout_alignStart="@+id/etDescription"
-        android:backgroundTint="@color/igBlue"
-        android:text="Submit" />
-
-    <Button
-        android:id="@+id/btnLogout"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="70dp"
-        android:backgroundTint="@color/igGreen"
-        android:text="Logout" />
+        app:menu="@menu/menu_bottom_navigation"/>
 
-    <Button
-        android:id="@+id/btnFeed"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/btnSubmit"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="5dp"
-        android:backgroundTint="@color/igBlue"
-        android:text="Feed"/>
 </RelativeLayout>
