@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <queries>
+
         <!-- Camera -->
         <intent>
             <action android:name="android.media.action.IMAGE_CAPTURE" />
@@ -15,13 +16,14 @@
     <application
         android:name=".ParseApplication"
         android:allowBackup="true"
+        android:icon="@drawable/icon"
         android:label=""
         android:roundIcon="@drawable/icon"
-        android:icon="@drawable/icon"
         android:supportsRtl="true"
-        android:usesCleartextTraffic="true"
-        android:theme="@style/Theme.Parstagram">
-        <activity android:name=".DetailsActivity"></activity>
+        android:theme="@style/Theme.Parstagram"
+        android:usesCleartextTraffic="true">
+        <activity android:name=".SignupActivity"></activity>
+        <activity android:name=".DetailsActivity" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
